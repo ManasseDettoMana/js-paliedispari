@@ -1,44 +1,25 @@
-// divido la parola in un array di char la inverto e la ricompongo
-function invertiParola(a){
-    a=a.split("").reverse().join("");
-    return a;
-}
 
-function parolaPalindroma(a,aInv){
+function parolaPalindroma(a){
+
+    let aInv=a.split("").reverse().join("");      // divido la parola in un array di char la inverto e la ricompongo
+
     if(a == aInv){
-        alert(a + " è una parola palindroma");
-    }else{
-        alert(a + " non è una parola palindroma");
+        return true
     }
+    return false;
 }
 
-function sceltaNumeroComputer(n,scelta){
-    let numeroComputer;
-    if(n % 2 == 0){                                               //se l'utente ha scelto un numero paro, crea un numero random finchè è dispari
-        do{
-            numeroComputer=Math.floor(Math.random() * 5) +1; 
-        }while(numeroComputer % 2 ==0);
-        scelta=true;                                             
-    }else{                                                        //altrimenti fai la stessa cosa ma finchè il numero non é pari.
-        do{
-            numeroComputer=Math.floor(Math.random() * 5) +1; 
-        }while(numeroComputer % 2 != 0);
-        scelta=false;
-    }
-
-    return numeroComputer;
-}
 
 function sceltaVincitore(giocatore,computer,scelta){
     let risultato;
     if ((giocatore + computer) % 2 == 0){
-        risultato=true;
+        risultato=true;                             //se la somma dei due numeri è pari risultato è true
     }
     else{
-        risultato=false;
+        risultato=false;                            
     }
 
-    if(risultato == scelta){ //confronto i risultati e stabilisco il vincitore
+    if(risultato != scelta){                        //confronto i risultati e stabilisco il vincitore
         return true;
     }
 
@@ -47,12 +28,15 @@ function sceltaVincitore(giocatore,computer,scelta){
 
 let parola = prompt("Inserisci una parola");
 
-parolaInvertita=invertiParola(parola);
-// console.log(parolaPalindroma(parola, parolaInvertita));
+if(parolaPalindroma(parola)){
+    alert("La parola è palindroma");
+}else{
+    alert("La parola non è palindroma");
+}
 
 
-let numeroGiocatore;
-let scelta;//variabile che indica se la scelta fatta è pari(true) o dispari(false)
+
+let numeroComputer=Math.floor(Math.random() * 5) +1;    //scelta random del numero per il computer
 
 do{
     numeroGiocatore=parseInt(prompt("Scegli un numero da 1 a 5"));
@@ -61,11 +45,16 @@ do{
     }
 }while(numeroGiocatore < 1 || numeroGiocatore > 5);
 
+let scelta=prompt("Scegli se giocare come pari o dispari");   //variabile che indica se la scelta fatta è pari(true) o dispari(false)
 
-let numeroComputer = sceltaNumeroComputer(numeroGiocatore, scelta);
-// console.log(scelta);
+if(scelta.toLowerCase()=="pari"){
+    scelta=true;                                    //la scelta pari è true
+}else if(scelta.toLowerCase()=="dispari"){
+    scelta=false;                                   //la scelta dispari è false
+}
 
-let vincitore = sceltaVincitore(numeroGiocatore, numeroComputer, scelta);
+
+let vincitore = sceltaVincitore(numeroGiocatore, numeroComputer, scelta);   //restituisce un booleano
 
 if(vincitore){
     alert("HA VINTO IL COMPUTER");
@@ -75,4 +64,5 @@ if(vincitore){
 
 console.log("numero giocatore " + numeroGiocatore);
 console.log("numero computer " + numeroComputer);
-// console.log("numeri sommati " + numeroComputer+numeroGiocatore);
+console.log("numeri sommati " + (numeroComputer+numeroGiocatore));
+
